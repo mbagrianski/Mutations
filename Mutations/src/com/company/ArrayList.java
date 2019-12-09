@@ -1,33 +1,41 @@
-package com.company;
-
 public class ArrayList<T>{
-    private int size = 20001; //Default size
-    private int length = 0; //Tracks the actual length of the ArrayList
-    private int fix = 0;
-    private Node<T>[] array = new Node[size];
+    private int size = 20001;
+    private int filledLength = 0;
+    
+    private Node<T>[] array = new Node[size];    
 
     public void addNode(T n){
-        array[fix + length++] = new Node<>(n); //Convert n into a Node
+        if (filledLength >= size) doubleSize();
+        array[filledLength++] = new Node<>(n);
+    }
+    
+    public void removeNode(int i){
+        for (int j = i; j < filledLength; j++) {
+        	array[j] = array[j + 1];
+        }
+        filledLength = Math.max(filledLength - 1, 0);
     }
 
-    public void removeFront(){
-        //Removes the first element in the ArrayList
-        fix++;
-        length = Math.max(length - 1, 0);
-    }
-
-    public void replaceNode(T n, int i){
-        //Change the value of the Node
-        array[i + fix] = new Node<>(n);
+    public void switchNode(T n, int i){
+    	Node<T> node = new Node<>(n);
+        array[i] = node;
     }
 
     public T getNode(int i){
-        //Returns the value at the given index
-        return array[i + fix].getValue();
+        return array[i].getValue();
     }
 
     public int size(){
-        //Returns the length of the ArrayList
-        return length;
+        return filledLength;
+    }
+    
+    
+    private void doubleSize(){ //Double the size of the array if there are too many elements
+        size *= 2; 
+        Node<T>[] temp = new Node[size];
+        for (int i = 0; i <= filledLength-1; i++) {
+        	temp[i] = array[i];
+        }
+        array = temp;
     }
 }
