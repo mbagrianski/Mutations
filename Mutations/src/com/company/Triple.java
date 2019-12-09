@@ -1,14 +1,12 @@
-package com.company;
-
-public class Triple{
-    //After making the variables public, we can directly change the values instead of writing getters/setters.
+public class Gene{
+	
     public String x;
     public double y;
     public int z;
 
-    public Triple(String x, double y, int z){
+    public Gene(String x, double y, int z){
         //Sets the values of Triple
-        this.x = x;
+        this.x = x; //name of gene
         this.y = y;
         this.z = z;
     }
